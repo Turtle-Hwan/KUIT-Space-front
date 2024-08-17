@@ -19,7 +19,7 @@ export default defineConfig({
       // external: ["react", "react-dom", "styled-components"],
     },
   },
-  base: "/KUIT-Space-front/",
+  //base: "/KUIT-Space-front/",
   server: {
     proxy: {
       "/api": {

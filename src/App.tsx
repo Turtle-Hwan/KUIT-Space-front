@@ -150,7 +150,7 @@ function App() {
     },
   ];
 
-  const router = createBrowserRouter(routes, { basename: "/KUIT-Space-front/" });
+  const router = createBrowserRouter(routes);
   return <RouterProvider router={router} />;
 }
 
