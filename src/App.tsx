@@ -38,6 +38,7 @@ import { theme } from "@/styles/Theme";
 import BoardDetailPage from "./pages/BoardPage/BoardDetailpage/BoardDetailPage";
 import BoardRegisterPage from "./pages/BoardPage/BoardRegisterPage/BoardRegisterPage";
 import LoginModal from "./pages/LoginPage/LoginModal";
+import InviteSpace from "./pages/SpacePage/InviteSpace";
 
 // will we need constant path in later..?
 // const PATH = {
@@ -126,6 +127,10 @@ function App() {
     { path: "/space/spaceoption/accountmanage", element: <AccountManage /> },
     { path: "/space/spaceoption/profilemanage", element: <ProfileManage /> },
     { path: "/space/spaceoption/alarmmanage", element: <AlarmManage /> },
+    { path: "/invite", element: <InviteSpace /> },
+    { path: "/createvoiceroom", element: <CreateVoiceRoomPage />, hasBottomBar: false },
+    { path: "/joinvoiceroom", element: <JoinVoiceRoomPage />, hasBottombar: false },
+    { path: "/editvoiceroom", element: <EditVoiceRoomPage />, hasBottombar: false },
   ];
 
   const routes_children_login = [
@@ -141,6 +146,7 @@ function App() {
     ...routes_children_board,
     ...routes_children_space,
     ...routes_children_login,
+    { path: "/*", element: <HomePage />, hasBottomBar: true },
   ];
 
   const routes = [
