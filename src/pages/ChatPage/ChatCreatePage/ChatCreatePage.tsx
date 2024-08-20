@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { choseongIncludes, hangulIncludes } from "es-hangul";
 
 import { ChatroomCreateApi } from "@/apis";
@@ -13,13 +14,17 @@ import {
   ChatCreateContainer,
   ChatroomAddImgBtn,
   ChatroomName,
+  InviteContainer,
   InviteInput,
+  InviteSearchIcon,
   Member,
 } from "@/pages/ChatPage/ChatCreatePage/ChatCreatePage.styled";
+import { Explanation } from "@/pages/LoginPage/SignUpPage.styled";
 import { getUserDefaultImageURL } from "@/utils/getUserDefaultImageURL";
 import { svgComponentToFile } from "@/utils/svgComponentToFile";
 
 const ChatCreatePage = () => {
+  const navigate = useNavigate();
   const [name, setName] = useState<string>("");
   const [invitedMemberList, setInvitedMemberList] = useState<UserInfoInSpace[]>([]);
   const [memberList, setMemberList] = useState<UserInfoInSpace[]>([]);
@@ -56,6 +61,8 @@ const ChatCreatePage = () => {
     ).then((res) => {
       if (res) {
         console.log("생성 완료: ", res);
+        //navigate(`/chat/${res.result.chatRoomId}`); chatroomInfo state가 없어서 못 넘기나...ㅜㅠ
+        navigate(`/chat`);
       }
     });
   };
@@ -63,6 +70,10 @@ const ChatCreatePage = () => {
   const handleImageImport = (e: React.ChangeEvent<HTMLInputElement>) => {
     const image = e.target.files?.[0];
     image && setUploadedImage(image);
+  };
+
+  const validateChatroomName = (name: string) => {
+    return name.length >= 3 && name.length <= 15;
   };
 
   return (
@@ -84,19 +95,28 @@ const ChatCreatePage = () => {
               onChange={(e) => {
                 setName(e.target.value);
               }}
+              style={{
+                borderColor: validateChatroomName(name) ? "#48FFBD" : "#FF5656",
+              }}
             />
             <span>{name.length} / 15</span>
           </ChatroomName>
+          <Explanation $isValid={validateChatroomName(name)}>
+            {!validateChatroomName(name) && <span>채팅방 이름은 3 ~ 15자 이어야 해요</span>}
+          </Explanation>
         </div>
         <div className="input--container">
           <p>
             <span className="invite title">멤버 초대</span>
             <span className="invite member--number">{invitedMemberList.length}</span>
           </p>
-          <InviteInput
-            onChange={(e) => setSearchWord(e.target.value)}
-            placeholder="이름으로 검색해 보세요"
-          />
+          <InviteContainer>
+            <InviteInput
+              onChange={(e) => setSearchWord(e.target.value)}
+              placeholder="이름으로 검색해 보세요"
+            />
+            <InviteSearchIcon />
+          </InviteContainer>
         </div>
         <div className="input--container">
           <p>멤버 목록</p>
