@@ -38,7 +38,7 @@ const BoardRegisterContainer = styled.div`
   }
 `;
 
-const BoardRegisterManagerTitle = styled.div`
+const BoardRegisterManagerTitle = styled.label`
   width: 100%;
   display: flex;
   gap: 0.5rem;
@@ -176,13 +176,13 @@ const BoardRegisterPage = () => {
         }
       ></TopBarText>
       <BoardRegisterContainer>
-        <BoardRegisterManagerTitle>
-          <CheckBox
-            onClick={() => {
-              setIsNotice((prev) => !prev);
-              console.log(isNotice);
-            }}
-          />
+        <BoardRegisterManagerTitle
+          onClick={() => {
+            setIsNotice((prev) => !prev);
+            console.log(isNotice);
+          }}
+        >
+          <CheckBox checked={isNotice} />
           <span className={isNotice ? "board-register-manager-active" : ""}>공지로 등록하기</span>
         </BoardRegisterManagerTitle>
         <BoardRegisterTitle
@@ -203,6 +203,7 @@ const BoardRegisterPage = () => {
                 className="board-register-selected-image"
                 key={i + image.name}
                 src={URL.createObjectURL(image)}
+                alt="board register selected image"
               />
             );
           })}
@@ -216,9 +217,9 @@ const BoardRegisterPage = () => {
           onChange={handleImageImport}
           style={{ display: "none" }}
         />
-        <img src={camera} />
+        <img src={camera} alt="camera" />
         <img src={gallery} onClick={() => inputImgRef.current?.click()} />
-        <img src={link} />
+        <img src={link} alt="link" />
       </BoardRegisterFooter>
     </>
   );

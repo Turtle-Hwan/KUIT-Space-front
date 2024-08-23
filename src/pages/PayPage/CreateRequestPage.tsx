@@ -52,7 +52,7 @@ const idToPrice = new Map<number, number>();
 const RecentAccountDiv = ({ data }: { data: BankInfo }) => {
   return (
     <s.RowFlexDiv style={{ margin: "0.25rem" }}>
-      <img style={{ marginRight: "0.75rem" }} src={Kookmin}></img>
+      <img style={{ marginRight: "0.75rem" }} src={Kookmin} alt="kookmin 은행" />
       <s.ColumnFlexDiv>
         <s.GrayTextDiv>{data.bankName}</s.GrayTextDiv>
         <s.RegularText>{data.bankAccountNum}</s.RegularText>
@@ -71,7 +71,7 @@ const CreateRequestPage1 = ({
   setBankName: React.Dispatch<React.SetStateAction<string>>;
 }) => {
   const [bankData, setBankData] = useState<BankInfo[] | undefined>([]);
-  const [bankValue, setBankValue] = useState("");
+  const [bankValue, setBankValue] = useState("국민은행");
   const [acc, setAcc] = useState("");
 
   useEffect(() => {
@@ -155,10 +155,10 @@ const CreateRequestPage2 = ({
 
   useEffect(() => {
     const id = Number(localStorage.getItem("spaceId"));
+    setCheckUsers(new Set<number>());
+
     getAllMemberApi(id, setUserInfoData);
-    getAllChatMemberApi(id, setChatUserInfoData).then((res) =>
-      console.log("chatUser", chatUserInfoData),
-    );
+    getAllChatMemberApi(id, setChatUserInfoData);
   }, []);
 
   const checkUserHandler = (id: number) => {
@@ -235,6 +235,7 @@ const CreateRequestPage2 = ({
                               ? value.profileImgUrl
                               : getUserDefaultImageURL(value.userId)
                           }
+                          alt="profile img"
                         />
                         <span className="name">{value.userName}</span>
                       </section>
@@ -365,6 +366,7 @@ const CreateRequestPage3 = ({
                           ? value.userProfileImg
                           : getUserDefaultImageURL(value.userId!)
                       }
+                      alt="profile img"
                     />
                     <span className="name">{value.userName}</span>
                   </section>
@@ -392,6 +394,7 @@ const CreateRequestPage3 = ({
                           ? value.userProfileImg
                           : getUserDefaultImageURL(value.userId!)
                       }
+                      alt="profile img"
                     />
                     <span className="name">{value.userName}</span>
                   </section>
@@ -479,6 +482,7 @@ const CreateRequestPage4 = ({
                         ? _userData?.profileImgUrl
                         : getUserDefaultImageURL(_userData!.userId)
                     }
+                    alt="profile img"
                   />
                   <span className="name">{_userData?.userName}</span>
                 </section>
